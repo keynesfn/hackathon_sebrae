@@ -1,0 +1,81 @@
+<html>
+<head>
+<title>Canvas Vei!!!</title>
+<link type="text/css" rel="stylesheet" href="./static/css/redmond/ui-all.css" />
+<script type="text/javascript" src="./static/js/jquery.js"></script>
+<script type="text/javascript" src="./static/js/jquery-ui.js"></script>
+<script type="text/javascript" src="./static/js/jquery-impl.js"></script>
+<script type="text/javascript" src="./static/js/jquery-ext.js"></script>
+</head>
+<body>
+	<div id="novoWindow">
+		<form id="formWindow" method="post">
+			<label>Descriçao</label>
+			<textarea id="field-descricao" name="descricao"
+				class="ui-widget-content ui-corner-all"></textarea>
+			<br /> <label>Cor</label> <select id="field-cor" name="cor"
+				class="ui-widget-content ui-corner-all">
+				<option value="00F">Azul</option>
+				<option value="0FF">Amarelo</option>
+			</select> <select id="field-situacao" name="situacao"
+				class="ui-widget-content ui-corner-all">
+				<option value="0">Hipotese</option>
+				<option value="1">Validado</option>
+				<option value="-1">Invalidado</option>
+			</select> <br />
+		</form>
+	</div>
+
+
+	<div id="canvas">
+		<div id="toolbar" class="ui-widget-content ui-corner-all">
+			<button id="abrirWindowButton" class="button" name="novo">Novo</button>
+		</div>
+		<div class="ui-helper-reset" />
+		<div id="title-como" class="title">Como?</div>
+		<div id="title-oque" class="title">O que?</div>
+		<div id="title-paraquem" class="title">Para quem?</div>
+		<div class="ui-helper-reset" />
+		<div id="box1"
+			class="box float ui-widget ui-widget-content ui-corner-all">
+			<span class="box-title">(5) Parcerias principais </span>
+		</div>
+		<div id="box23" class="float">
+			<div id="box2" class="box ui-widget ui-widget-content ui-corner-all">
+				<span class="box-title">(6) Atividades principais </span>
+			</div>
+			<div id="box3" class="box ui-widget ui-widget-content ui-corner-all">
+				<span class="box-title">(7) Recursos principais </span>
+			</div>
+		</div>
+		<div id="box4"
+			class="box float  ui-widget ui-widget-content ui-corner-all">
+			<span class="box-title">(1) Proposta de valor </span>
+		</div>
+		<div id="box56" class="float">
+			<div id="box5" class="box  ui-widget ui-widget-content ui-corner-all">
+				<span class="box-title">(4) Relacionamento com clientes </span>
+			</div>
+			<div id="box6" class="box  ui-widget ui-widget-content ui-corner-all">
+				<span class="box-title">(3) Canais </span>
+			</div>
+		</div>
+		<div id="box7"
+			class="box float  ui-widget ui-widget-content ui-corner-all">
+			<span class="box-title">(2) Seguimento de clientes </span>
+		</div>
+		<div id="box8"
+			class="box float ui-widget ui-widget-content ui-corner-all">
+			<span class="box-title">(8) Estrutura de custos </span>
+		</div>
+		<div id="box9"
+			class="box float ui-widget ui-widget-content ui-corner-all">
+			<span class="box-title">(9) Receitas </span>
+		</div>
+		<div class="ui-helper-reset">&nbsp;</div>
+
+		<div id="title-quanto" class="title">Quanto?</div>
+		<div id="boxs"></div>
+	</div>
+</body>
+</html>

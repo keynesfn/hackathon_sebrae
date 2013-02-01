@@ -1,0 +1,50 @@
+/* global */
+*,html{margin:0;padding:0;font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif; font-size: 12px;}
+fieldset{clear:both;padding:4px;}
+legend{padding:2px 6px;}
+.ui-form label.default{display:block;float:left;width:15%;height:100%;min-width:120px;margin-right:10px; clear:both;}
+
+ul.sortable { list-style-type: none; margin: 0; padding: 0; float: left; margin-right: 10px; padding: 5px;}
+li.item { margin: 5px; padding: 5px; width: 30px; float:left;}
+
+
+*,html{margin:0;padding:0;font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif; font-size: 12px;}
+body{background: #ddd;}
+label{display:block;float:left;width:100px;}
+textarea{width:250px;height:100px;}
+
+.box{display:block;float:left;margin:0 4px 1px 0;}
+#box23{width:186px;margin: 0 5px 1px 0;}
+#box56{width:186px;margin: 0 5px 1px 0;}
+
+.toolbar-column{display:inline-block;width:49%;}
+.partB{text-align:right;}
+
+.title{float:left;text-align:center;padding: 10px 0;}
+#title-como{float:left;width:380px;}
+#title-oque{float:left;width:187px;}
+#title-paraquem{float:left;width:380px;}
+#title-quanto{width:100%;}
+#toolbar{padding: 5px;}
+
+.float{float:left;}
+.draggable{position:absolute;padding:6px;width:50px;height:50px;clear:both;z-index:999;}
+.box-title{display:block;padding:5px;}
+
+#canvas{width:960px;margin: 0 auto;}
+
+.portlet { margin: 0 1em 1em 0; }
+.portlet-header { margin: 0.3em; padding-bottom: 4px; padding-left: 0.2em; }
+.portlet-header .ui-icon { float: right; }
+.portlet-content { padding: 0.4em; }
+
+
+#box7{width:187px;height:304px;}
+#box8{width:100%;height:149px;margin: 0 0 4px 0; }
+#box6{width:100%;height:149px;margin: 0 0 4px 0; clear:both;}
+#box1{width:187px;height:304px;}
+#box4{width:100%;height:149px;margin: 0 0 4px 0; clear:both;}
+#box3{width:100%;height:149px;margin: 0 0 4px 0; }
+#box2{width:186px;height:304px;}
+#box9{width:474px;height:150px;clear:both;}
+#box5{width:474px;height:150px;}
