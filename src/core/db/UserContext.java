@@ -1,5 +1,6 @@
 package core.db;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -21,6 +22,10 @@ public class UserContext {
 	
 	public Date getDataAtual() {
 		return new Date();
+	}
+	public String getHoraAtual() {
+		SimpleDateFormat sdf_hora = new SimpleDateFormat("HH:mm");
+		return sdf_hora.format(getDataAtual());
 	}
 	
 	public void putObject(String key, Object value) {

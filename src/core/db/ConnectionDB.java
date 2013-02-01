@@ -8,8 +8,12 @@ public class ConnectionDB {
 	private static Connection conn;
 	
 	protected static Connection createConnection() throws Exception {
-		String host = "127.0.0.1";
 		String port = "5432";
+//		String host = "199.85.212.111";
+//		String name = "dotumsas_sebrae";
+//		String usuario = "dotumsas_sebrae";
+//		String senha = "abc123#21";
+		String host = "127.0.0.1";
 		String name = "hackathon_sebrae";
 		String usuario = "postgres";
 		String senha = "123456";

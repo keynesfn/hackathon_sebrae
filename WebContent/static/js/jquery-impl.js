@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	$('.button').button();
+	$('#window_tarefa').tabs();
 
 	$("ul").sortable({
 		connectWith: ".sortable",
@@ -22,7 +23,7 @@ $(document).ready(function() {
 	var tarefaIdTemp;
 	$("li.item").dblclick(function(){
 		tarefaIdTemp = $(this).attr('tarefaId');
-		$('#window_excluir_tarefa').dialog('open');
+		$('#window_tarefa').dialog('open');
 
 	});
 
@@ -32,9 +33,9 @@ $(document).ready(function() {
 
 		$.ajax({
 			type: 'POST',
-			url: 'canvas?acao=salvarTarefa',
+			url: 'canvas',
 			cache: false,
-			data: $('#formWindow').serialize()
+			data: $('#novaTarefaFormWindow').serialize()
 		}).done(function(data){
 			var titulo = $('#field-titulo').val();
 			var cor = $('#field-cor').val();			
@@ -62,25 +63,48 @@ $(document).ready(function() {
 		modal: true
 	});
 
-	$('#window_excluir_tarefa').dialog({
+	$('#window_tarefa').dialog({
 		title:'Excluir',
 		autoOpen: false,
 		width: 450,
-		modal: true,
-		buttons: {
-			'Sim': function() {
-				$.ajax({
-					type: 'POST',
-					url: 'canvas?acao=apagarTarefa',
-					cache: false,
-					data: 'tarefaId='+ tarefaIdTemp
-				});
-				$('li[tarefaId="'+ tarefaIdTemp +'"]').hide();
-				$('#window_excluir_tarefa').dialog('close');
-			}, 
-			'Não': function() {
-				$('#window_excluir_tarefa').dialog('close');
-			}
-		}
+		modal: true
 	});
+	
+	
+	$('#excluirButton').click(function() {
+		$.ajax({
+			type: 'POST',
+			url: 'canvas?acao=apagarTarefa',
+			cache: false,
+			data: 'tarefaId='+ tarefaIdTemp
+		});
+		$('li[tarefaId="'+ tarefaIdTemp +'"]').hide();
+		$('#window_tarefa').dialog('close');
+	});
+	
+	$('#comentarButton').click(function() {
+		var comentario = $('#field-comentario').val();
+		
+		$.ajax({
+			type: 'POST',
+			url: 'canvas',
+			cache: false,
+			data: 'acao=comentarTarefa&tarefaId='+ tarefaIdTemp + '&comentario=' + comentario 
+		});
+		$('#window_tarefa').dialog('close');
+		return false;
+	});
+	
+	$('#tabs-2').click(function() {
+		$.ajax({
+			type: 'POST',
+			url: 'canvas',
+			cache: false,
+			data: 'acao=buscarComentario&tarefaId='+ tarefaIdTemp
+		}).done(function(data){
+			$('#comentariosDiv').html(data);
+		});
+		
+	});
+
 });

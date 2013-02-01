@@ -2,10 +2,10 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import view.CanvasView;
 import bean.ProjetoBean;
 import bean.TarefaBean;
+import bean.TarefaComentarioBean;
 import core.db.TransactionDB;
 import core.db.UserContext;
 import core.exceptions.NotFoundException;
@@ -38,8 +39,8 @@ public class CanvasServlet extends HttpServlet {
 			boolean imprimirTelaInicial = true;
 			if (acao == null) acao = "montarTela";
 
-			
-			
+
+
 			UserContext userContext = ServletUtils.getUserContext(request);
 			Integer projetoId = null;
 			String projetoIdStr = request.getParameter("projetoId");
@@ -110,16 +111,66 @@ public class CanvasServlet extends HttpServlet {
 				trans.close();
 			} else if (acao.equals("apagarTarefa")) {
 				Integer tarefaId = Integer.parseInt(request.getParameter("tarefaId"));
-				
+
 				TransactionDB trans = TransactionDB.getInstance();
 				trans.start();
+
+				// primeiro excluir os comentarios 
+				List<TarefaComentarioBean> tcList = (List<TarefaComentarioBean>) trans.selectAll(TarefaComentarioBean.class);
+				for (TarefaComentarioBean tcBean : tcList) {
+					if (tcBean.getTarefa().getId().equals(tarefaId) == false) continue;
+
+					trans.delete(tcBean);
+				}
+
+
+				// depois excluir a tarefa
 				TarefaBean tBean = (TarefaBean) trans.selectById(TarefaBean.class, tarefaId);
 				trans.delete(tBean);
 				trans.commit();
 				trans.close();
 
-			}
+			} else if (acao.equals("comentarTarefa")) {
 
+				String comentario = request.getParameter("comentario");
+				Integer tarefaId = Integer.parseInt(request.getParameter("tarefaId"));
+
+				TransactionDB trans = TransactionDB.getInstance();
+				trans.start();
+				TarefaComentarioBean tcBean = (TarefaComentarioBean) trans.create(TarefaComentarioBean.class);
+				tcBean.getTarefa().setId(tarefaId);
+				tcBean.setData(userContext.getDataAtual());
+				tcBean.setHora(userContext.getHoraAtual());
+				tcBean.setComentario(comentario);
+
+				trans.insert(tcBean);
+				trans.commit();
+				trans.close();
+			} else if (acao.equals("buscarComentario")) {
+
+				Integer tarefaId = Integer.parseInt(request.getParameter("tarefaId"));
+				TransactionDB trans = TransactionDB.getInstance();
+				List<TarefaComentarioBean> tcTemp = (List<TarefaComentarioBean>) trans.selectAll(TarefaComentarioBean.class);
+
+
+				SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+				StringBuilder retorno = new StringBuilder();
+				for (TarefaComentarioBean tcBean : tcTemp) {
+					if (tcBean.getTarefa().getId().equals(tarefaId) == false) continue;
+
+					retorno.append("<b>");
+					retorno.append( sdf.format( tcBean.getData() ) );
+					retorno.append(" - ");
+					retorno.append( tcBean.getHora() );
+					retorno.append("</b>");
+					retorno.append(": ");
+					retorno.append( tcBean.getComentario() );
+					retorno.append("<br />");
+				}
+				sb.append(retorno.toString());
+				imprimirTelaInicial = false;
+			}
 
 
 			if (imprimirTelaInicial == true) {
@@ -149,7 +200,7 @@ public class CanvasServlet extends HttpServlet {
 				ResultHtml html = new ResultHtml();
 				html.addBody( CanvasView.criaHtmlNovaProjetoWindow() );
 				html.addBody( CanvasView.criaHtmlNovaTarefaWindow() );
-				html.addBody( CanvasView.criaHtmlExcluirTarefaWindow() );
+				html.addBody( CanvasView.criaHtmlTarefaWindow() );
 				html.addBody( CanvasView.criaHtmlHome(pList, tList, projetoId) );
 
 				sb.append( html );

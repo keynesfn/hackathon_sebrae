@@ -1,46 +1,3 @@
-################### ORACLE #################
-
-create table USUARIO  (
-   USU_ID               NUMBER(15)                      not null,
-   USU_NOME             NVARCHAR2(250),
-   USU_USUARIO          NVARCHAR2(250),
-   USU_SENHA            NVARCHAR2(250),
-   USU_EMAIL            NVARCHAR2(250),
-   constraint PK_USU primary key (USU_ID)
-);
-
-create table PROJETO  (
-   PRO_ID               NUMBER(15)                      not null,
-   USU_ID               NUMBER(15),
-   PRO_CADASTRO         DATE,
-   PRO_DESCRICAO        NVARCHAR2(250),
-   PRO_OBSERVACAO       NVARCHAR2(2000),
-   constraint PK_PRO primary key (PRO_ID)
-);
-
-alter table PROJETO
-   add constraint FK_PRO_USU foreign key (USU_ID)
-      references USUARIO (USU_ID);
-
-create table TAREFA  (
-   TAR_ID               NUMBER(15)                      not null,
-   PRO_ID               NUMBER(15),
-   TAR_CADASTRO         DATE,
-   TAR_SITUACAO         NUMBER(15),
-   TAR_TITULO           NVARCHAR2(250),
-   TAR_DESCRICAO        NVARCHAR2(250),
-   TAR_COR              NVARCHAR2(250),
-   TAR_QUADRO           NUMBER(15),
-   constraint PK_TAR primary key (TAR_ID)
-);
-
-alter table TAREFA
-   add constraint FK_TAR_PRO foreign key (PRO_ID)
-      references PROJETO (PRO_ID);
-
-      
-      
-      
 ################# POSTGRES #######################
 create table USUARIO (
    USU_ID               NUMERIC(15)          not null,
@@ -82,5 +39,19 @@ alter table TAREFA
       references PROJETO (PRO_ID)
       on delete restrict on update restrict;
 
+      
+============ 0.6 =================
+      
+create table TAREFACOMENTARIO (
+   TARC_ID              NUMERIC(15)          not null,
+   TAR_ID               NUMERIC(15)          null,
+   TARC_DATA            DATA                 null,
+   TARC_HORA            VARCHAR(20)          null,
+   TARC_COMENTARIO      VARCHAR(250)         null,
+   constraint PK_TAREFACOMENTARIO primary key (TARC_ID)
+);
 
-insert into usuario values (1, 'Keynes', 'keynesfn', 'abc123', 'keynes@dotum.com.br');
+alter table TAREFACOMENTARIO
+   add constraint FK_TARC_TAR foreign key (TAR_ID)
+      references TAREFA (TAR_ID)
+      on delete restrict on update restrict;

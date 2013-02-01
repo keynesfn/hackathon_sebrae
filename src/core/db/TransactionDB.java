@@ -492,6 +492,9 @@ public class TransactionDB {
 		if (result.size() == 0)
 			throw new NotFoundException("Nenhum "+ tableDB.label().toLowerCase() +" encontrado.");
 
+		for (int i = 0; i < result.size(); i++) {
+			result.get(i).setCreated();
+		}
 		return result;
 	}
 
