@@ -81,3 +81,6 @@ alter table TAREFA
    add constraint FK_TAR_PRO foreign key (PRO_ID)
       references PROJETO (PRO_ID)
       on delete restrict on update restrict;
+
+
+insert into usuario values (1, 'Keynes', 'keynesfn', 'abc123', 'keynes@dotum.com.br');
